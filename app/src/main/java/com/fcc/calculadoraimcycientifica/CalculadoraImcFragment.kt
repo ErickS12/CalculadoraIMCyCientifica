@@ -31,9 +31,10 @@ class CalculadoraImcFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val application = requireActivity().application
-        val factory = SavedStateViewModelFactory(application, this)
-        viewModel = ViewModelProvider(this, factory)[ImcViewModel::class.java]
+        val activity = requireActivity()
+        val factory = SavedStateViewModelFactory(activity.application, activity)
+        viewModel = ViewModelProvider(activity, factory)[ImcViewModel::class.java]
+        //android.util.Log.d("VM", "ImcViewModel id=${System.identityHashCode(viewModel)}")
     }
 
     override fun onCreateView(
