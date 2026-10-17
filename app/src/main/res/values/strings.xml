@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">CalculadoraIMCyCientifica</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="titulo_imc">Calculadora de IMC</string>
     <string name="sistema_metrico">Métrico (kg, cm)</string>
@@ -58,6 +56,11 @@
     <string name="valor_ft_in">%1$s ft %2$s in</string>
     <string name="sin_dato">—</string>
 
+    <string name="categoria_bajo">Bajo peso</string>
+    <string name="categoria_normal">Peso normal</string>
+    <string name="categoria_sobrepeso">Sobrepeso</string>
+    <string name="categoria_obesidad">Obesidad</string>
+
     <string name="interpretacion_bajo">Tu peso está por debajo del rango recomendado para tu estatura.</string>
     <string name="interpretacion_normal">Tu peso está dentro del rango considerado saludable para tu estatura.</string>
     <string name="interpretacion_sobrepeso">Tu peso está por encima del rango recomendado para tu estatura.</string>
@@ -67,5 +70,55 @@
     <string name="rce_elevado">Por encima de 0.5, lo que podría indicar un mayor riesgo cardiovascular.</string>
 
 
-    <string name="calculadora_cientifica_proximamente">Calculadora científica próximamente...</string>
+<!--    string para la calculadora cientifica-->
+
+    <string name="modo_deg">DEG</string>
+    <string name="modo_grados">Grados</string>
+
+    <string name="tecla_2nd">2nd</string>
+    <string name="tecla_sin">sin</string>
+    <string name="tecla_cos">cos</string>
+    <string name="tecla_tan">tan</string>
+    <string name="tecla_cuadrado">x²</string>
+    <string name="tecla_asin">asin</string>
+    <string name="tecla_acos">acos</string>
+    <string name="tecla_atan">atan</string>
+    <string name="tecla_ln">ln</string>
+    <string name="tecla_log">log</string>
+    <string name="tecla_raiz">√</string>
+    <string name="tecla_potencia">xʸ</string>
+    <string name="tecla_inverso">1/x</string>
+    <string name="tecla_factorial">n!</string>
+    <string name="tecla_absoluto">|x|</string>
+    <string name="tecla_pi">π</string>
+    <string name="tecla_e">e</string>
+    <string name="tecla_par_abre">(</string>
+    <string name="tecla_par_cierra">)</string>
+    <string name="tecla_mod">mod</string>
+    <string name="tecla_exp">eˣ</string>
+    <string name="tecla_diez_elevado">10ˣ</string>
+    <string name="tecla_cubo">x³</string>
+    <string name="tecla_raiz_cubica">∛</string>
+    <string name="tecla_ans">Ans</string>
+
+    <string name="tecla_ac">AC</string>
+    <string name="tecla_borrar">⌫</string>
+    <string name="tecla_porcentaje">%</string>
+    <string name="tecla_signo">±</string>
+    <string name="tecla_dividir">÷</string>
+    <string name="tecla_multiplicar">×</string>
+    <string name="tecla_restar">−</string>
+    <string name="tecla_sumar">+</string>
+    <string name="tecla_igual">=</string>
+    <string name="tecla_punto">.</string>
+    <string name="tecla_0">0</string>
+    <string name="tecla_1">1</string>
+    <string name="tecla_2">2</string>
+    <string name="tecla_3">3</string>
+    <string name="tecla_4">4</string>
+    <string name="tecla_5">5</string>
+    <string name="tecla_6">6</string>
+    <string name="tecla_7">7</string>
+    <string name="tecla_8">8</string>
+    <string name="tecla_9">9</string>
 </resources>

@@ -36,4 +36,53 @@
     </style>
 
 
+<!--    Calculadora cientifica: -->
+
+    <style name="Tecla" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:padding">0dp</item>
+        <item name="cornerRadius">8dp</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="strokeColor">@color/borde</item>
+    </style>
+
+    <style name="Tecla.Funcion">
+        <item name="backgroundTint">@color/tecla_funcion_fondo</item>
+        <item name="android:textColor">@color/tinta</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="Tecla.Numero">
+        <item name="backgroundTint">@color/white</item>
+        <item name="android:textColor">@color/tinta</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="Tecla.Operador">
+        <item name="backgroundTint">@color/verde_suave</item>
+        <item name="android:textColor">@color/verde_pino</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Tecla.ModoActivo">
+        <item name="backgroundTint">@color/verde_suave</item>
+        <item name="android:textColor">@color/verde_pino</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Tecla.Igual">
+        <item name="backgroundTint">@color/verde_pino</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
 </resources>

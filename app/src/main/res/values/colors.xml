@@ -8,11 +8,13 @@
     <color name="verde_abeto">#FF0B3D2C</color>       <!-- tarjeta de resultado -->
     <color name="verde_niebla">#FFE2EEE7</color>      <!-- fondos suaves, selector, chips -->
     <color name="verde_hoja">#FF2E9E68</color>        <!-- segmento "Normal" -->
+    <color name="verde_suave">#E2EEE7</color>
 
     <!-- Neutros -->
     <color name="fondo">#F3F6F3</color>
     <color name="tinta">#FF16281F</color>             <!-- texto principal -->
     <color name="texto_secundario">#FF55655B</color>
+    <color name="tecla_funcion_fondo">#EDF1EE</color>
     <color name="texto_placeholder">#FF7A8A80</color>
     <color name="borde">#FFD3DDD6</color>
     <color name="tecla_funcion">#FFEDF1EE</color>
