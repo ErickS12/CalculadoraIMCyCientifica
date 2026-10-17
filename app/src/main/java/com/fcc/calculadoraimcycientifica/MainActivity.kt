@@ -4,6 +4,7 @@ import android.content.res.Configuration
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.fcc.calculadoraimcycientifica.databinding.ActivityMainBinding
+import androidx.fragment.app.commit
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,11 +15,22 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val currentFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView)
-        if (currentFragment !is CalculadoraImcFragment) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainerView, CalculadoraImcFragment())
-                .commit()
+        val esHorizontal = resources.configuration.orientation ==
+                Configuration.ORIENTATION_LANDSCAPE
+        val actual = supportFragmentManager.findFragmentById(R.id.fragmentContainerView)
+        android.util.Log.d("ROT", "horizontal=$esHorizontal actual=${actual?.javaClass?.simpleName}")
+
+        val necesitaCientifica = esHorizontal && actual !is CalculadoraCientificaFragment
+        val necesitaImc = !esHorizontal && actual !is CalculadoraImcFragment
+
+        if (necesitaCientifica || necesitaImc) {
+            supportFragmentManager.commit {
+                setReorderingAllowed(true)
+                replace(
+                    R.id.fragmentContainerView,
+                    if (esHorizontal) CalculadoraCientificaFragment() else CalculadoraImcFragment()
+                )
+            }
         }
     }
 }
