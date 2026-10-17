@@ -9,16 +9,6 @@ enum class Sexo { MUJER, HOMBRE }
 
 class ImcViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel() {
 
-    private val SEXO_KEY = "sexo_key"
-    private val EDAD_KEY = "edad_key"
-    private val PESO_KEY = "peso_key"
-    private val ALTURA_KEY = "altura_key"
-    private val ALTURA_FT_KEY = "altura_ft_key"
-    private val ALTURA_IN_KEY = "altura_in_key"
-    private val CINTURA_KEY = "cintura_key"
-    private val SISTEMA_KEY = "sistema_key"
-    private val RESULTADO_KEY = "resultado_key"
-
     var sexo: Sexo?
         get() = savedStateHandle.get(SEXO_KEY)
         set(value) = savedStateHandle.set(SEXO_KEY, value)
@@ -51,7 +41,7 @@ class ImcViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel()
         get() = savedStateHandle.get(SISTEMA_KEY) ?: true
         set(value) = savedStateHandle.set(SISTEMA_KEY, value)
 
-    private var _mostrandoResultado: MutableLiveData<Boolean> =
+    private val _mostrandoResultado: MutableLiveData<Boolean> =
         savedStateHandle.getLiveData(RESULTADO_KEY, false)
 
     val mostrandoResultado: LiveData<Boolean> get() = _mostrandoResultado
@@ -67,11 +57,22 @@ class ImcViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel()
         savedStateHandle.remove<String>(ALTURA_FT_KEY)
         savedStateHandle.remove<String>(ALTURA_IN_KEY)
         savedStateHandle.remove<String>(CINTURA_KEY)
-        savedStateHandle.remove<Boolean>(SISTEMA_KEY)
     }
 
     fun nuevoCalculo() {
         limpiar()
         _mostrandoResultado.value = false
+    }
+
+    companion object {
+        private const val SEXO_KEY = "sexo_key"
+        private const val EDAD_KEY = "edad_key"
+        private const val PESO_KEY = "peso_key"
+        private const val ALTURA_KEY = "altura_key"
+        private const val ALTURA_FT_KEY = "altura_ft_key"
+        private const val ALTURA_IN_KEY = "altura_in_key"
+        private const val CINTURA_KEY = "cintura_key"
+        private const val SISTEMA_KEY = "sistema_key"
+        private const val RESULTADO_KEY = "resultado_key"
     }
 }

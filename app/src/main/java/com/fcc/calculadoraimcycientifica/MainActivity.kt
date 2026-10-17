@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity() {
         val esHorizontal = resources.configuration.orientation ==
                 Configuration.ORIENTATION_LANDSCAPE
         val actual = supportFragmentManager.findFragmentById(R.id.fragmentContainerView)
-        android.util.Log.d("ROT", "horizontal=$esHorizontal actual=${actual?.javaClass?.simpleName}")
 
         val necesitaCientifica = esHorizontal && actual !is CalculadoraCientificaFragment
         val necesitaImc = !esHorizontal && actual !is CalculadoraImcFragment
