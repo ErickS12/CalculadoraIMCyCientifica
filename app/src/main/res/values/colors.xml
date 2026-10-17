@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Verdes de marca -->
+    <color name="verde_pino">#FF0F6B48</color>        <!-- botón principal, tecla =, enfoque -->
+    <color name="verde_abeto">#FF0B3D2C</color>       <!-- tarjeta de resultado -->
+    <color name="verde_niebla">#FFE2EEE7</color>      <!-- fondos suaves, selector, chips -->
+    <color name="verde_hoja">#FF2E9E68</color>        <!-- segmento "Normal" -->
+
+    <!-- Neutros -->
+    <color name="fondo">#F3F6F3</color>
+    <color name="tinta">#FF16281F</color>             <!-- texto principal -->
+    <color name="texto_secundario">#FF55655B</color>
+    <color name="texto_placeholder">#FF7A8A80</color>
+    <color name="borde">#FFD3DDD6</color>
+    <color name="tecla_funcion">#FFEDF1EE</color>
+
+    <!-- Estados -->
+    <color name="boton_deshabilitado">#FFDCE4DE</color>
+    <color name="texto_deshabilitado">#FF8A998F</color>
+    <color name="texto_sobre_abeto">#FFB9D8C7</color> <!-- textos pequeños sobre la tarjeta oscura -->
+    <color name="error">#FFC0392B</color>
+
+    <!-- Escala del IMC -->
+    <color name="imc_bajo_peso">#FF6FA8C9</color>
+    <color name="imc_bajo">#FF6FA8C9</color>
+    <color name="imc_normal">#FF2E9E68</color>
+    <color name="imc_sobrepeso">#FFE7B43C</color>
+    <color name="imc_obesidad">#FFD9604F</color>
+
+    <!-- Barra de resultado -->
+    <color name="resultado_fondo">#FF0B3D2C</color>
+    <color name="resultado_chip">#FFE2EEE7</color>
+</resources>

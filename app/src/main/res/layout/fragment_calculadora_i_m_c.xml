@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fondo"
+    tools:context=".CalculadoraImcFragment">
+
+    <!-- ZONA CON SCROLL -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/divisor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <!-- Título -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:text="@string/titulo_imc"
+                android:textAlignment="center"
+                android:textAppearance="?attr/textAppearanceHeadlineSmall"
+                android:textColor="@color/tinta"
+                android:textStyle="bold" />
+
+            <!-- Toggle Métrico / Inglés -->
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/toggleSistema"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:background="@drawable/bg_toggle_sistema"
+                android:padding="4dp"
+                app:checkedButton="@+id/btnMetrico"
+                app:selectionRequired="true"
+                app:singleSelection="true">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnMetrico"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/sistema_metrico"
+                    android:textColor="@color/selector_sistema_texto"
+                    app:backgroundTint="@color/selector_sistema_fondo"
+                    app:strokeWidth="0dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnIngles"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/sistema_ingles"
+                    android:textColor="@color/selector_sistema_texto"
+                    app:backgroundTint="@color/selector_sistema_fondo"
+                    app:strokeWidth="0dp" />
+
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+
+            <!-- Subtítulo con barra verde -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:drawableStart="@drawable/barra_verde"
+                android:drawablePadding="8dp"
+                android:gravity="center_vertical"
+                android:text="@string/datos_personales"
+                android:textAppearance="?attr/textAppearanceTitleMedium"
+                android:textColor="@color/verde_pino"
+                android:textStyle="bold" />
+
+            <!-- Sexo -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/sexo"
+                android:textColor="@color/texto_secundario" />
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/toggleSexo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:singleSelection="true">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnMujer"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/mujer"
+                    android:textColor="@color/selector_sexo_texto"
+                    app:backgroundTint="@color/selector_sexo_fondo"
+                    app:strokeColor="@color/selector_sexo_borde" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnHombre"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/hombre"
+                    android:textColor="@color/selector_sexo_texto"
+                    app:backgroundTint="@color/selector_sexo_fondo"
+                    app:strokeColor="@color/selector_sexo_borde" />
+
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+
+            <!-- Edad -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/edad"
+                android:textColor="@color/texto_secundario" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutEdad"
+                style="@style/Campo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:suffixText="@string/unidad_anios">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etEdad"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_edad"
+                    android:inputType="number" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Peso y Altura lado a lado -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <!-- Columna Peso -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/peso"
+                        android:textColor="@color/texto_secundario" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layoutPeso"
+                        style="@style/Campo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:suffixText="@string/unidad_kg">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etPeso"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/hint_peso"
+                            android:inputType="numberDecimal" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <!-- Columna Altura -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/altura"
+                        android:textColor="@color/texto_secundario" />
+
+                    <!-- Altura métrica (cm) -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layoutAltura"
+                        style="@style/Campo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:suffixText="@string/unidad_cm">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etAltura"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/hint_altura"
+                            android:inputType="numberDecimal" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!-- Altura inglesa (ft + in): oculta por ahora -->
+                    <LinearLayout
+                        android:id="@+id/filaAlturaIngles"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal"
+                        android:visibility="gone"
+                        tools:visibility="gone">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/layoutAlturaFt"
+                            style="@style/Campo"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="4dp"
+                            android:layout_weight="1"
+                            app:suffixText="@string/unidad_ft">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etAlturaFt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/hint_ft"
+                                android:inputType="number" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/layoutAlturaIn"
+                            style="@style/Campo"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:layout_weight="1"
+                            app:suffixText="@string/unidad_in">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etAlturaIn"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/hint_in"
+                                android:inputType="numberDecimal" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Cintura -->
+            <TextView
+                android:id="@+id/textViewCinturaLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/cintura"
+                android:textColor="@color/texto_secundario" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutCintura"
+                style="@style/Campo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                app:suffixText="@string/unidad_cm"
+                app:suffixTextColor="@color/texto_placeholder">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etCintura"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_cintura"
+                    android:inputType="numberDecimal" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Ayuda -->
+            <TextView
+                android:id="@+id/textViewAyuda"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ayuda_cintura"
+                android:textAppearance="?attr/textAppearanceBodySmall"
+                android:textColor="@color/texto_placeholder" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- VISTA DE RESULTADO (Oculta por defecto) -->
+    <include
+        android:id="@+id/resultado"
+        layout="@layout/layout_resultado_imc"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Línea divisoria -->
+    <View
+        android:id="@+id/divisor"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/borde"
+        app:layout_constraintBottom_toTopOf="@id/barraInferior"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- BARRA INFERIOR FIJA -->
+    <LinearLayout
+        android:id="@+id/barraInferior"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLimpiar"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:minHeight="52dp"
+            android:text="@string/limpiar"
+            android:textColor="@color/tinta"
+            app:backgroundTint="@color/white"
+            app:cornerRadius="12dp"
+            app:strokeColor="@color/borde" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCalcular"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:enabled="false"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:minHeight="52dp"
+            android:text="@string/calcular"
+            android:textColor="@color/selector_texto_calcular"
+            app:backgroundTint="@color/selector_boton_calcular"
+            app:cornerRadius="12dp" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

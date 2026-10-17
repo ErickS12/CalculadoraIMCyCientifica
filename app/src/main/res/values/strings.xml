@@ -1,0 +1,71 @@
+<resources>
+    <string name="app_name">CalculadoraIMCyCientifica</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="titulo_imc">Calculadora de IMC</string>
+    <string name="sistema_metrico">Métrico (kg, cm)</string>
+    <string name="sistema_ingles">Inglés (lb, ft/in)</string>
+    <string name="datos_personales">Datos personales</string>
+    <string name="sexo">Sexo biológico</string>
+    <string name="mujer">Mujer</string>
+    <string name="hombre">Hombre</string>
+    <string name="edad">Edad (años)</string>
+    <string name="peso">Peso</string>
+    <string name="altura">Altura</string>
+    <string name="cintura">Cintura (opcional)</string>
+    <string name="ayuda_cintura">Mídela a la altura del ombligo. Con ella calculamos tu relación cintura-estatura.</string>
+    <string name="limpiar">Limpiar</string>
+    <string name="calcular">Calcular</string>
+
+    <string name="unidad_anios">años</string>
+    <string name="unidad_kg">kg</string>
+    <string name="unidad_cm">cm</string>
+    <string name="unidad_ft">ft</string>
+    <string name="unidad_in">in</string>
+    <string name="unidad_lb">lb</string>
+
+    <string name="hint_edad">Ej. 22</string>
+    <string name="hint_peso">70</string>
+    <string name="hint_altura">175</string>
+    <string name="hint_ft">5</string>
+    <string name="hint_in">9</string>
+    <string name="hint_cintura">72</string>
+
+    <string name="titulo_resultado">Tu resultado</string>
+    <string name="tu_imc">Tu índice de masa corporal</string>
+    <string name="unidad_imc">kg/m²</string>
+    <string name="rango_bajo">Bajo</string>
+    <string name="rango_normal">Normal</string>
+    <string name="rango_sobrepeso">Sobrepeso</string>
+    <string name="rango_obesidad">Obesidad</string>
+    <string name="rangos_imc">Bajo peso &lt; 18.5 · Normal 18.5–24.9 · Sobrepeso 25–29.9 · Obesidad ≥ 30</string>
+    <string name="tus_datos">Tus datos</string>
+    <string name="dato_sexo">Sexo</string>
+    <string name="dato_edad">Edad</string>
+    <string name="dato_peso">Peso</string>
+    <string name="dato_altura">Altura</string>
+    <string name="dato_cintura">Cintura</string>
+    <string name="rce_titulo">Relación cintura-estatura</string>
+    <string name="aviso_resultado">Este resultado es informativo y no sustituye la valoración de un profesional de la salud.</string>
+    <string name="editar_datos">Editar datos</string>
+    <string name="nuevo_calculo">Nuevo cálculo</string>
+
+    <string name="valor_anios">%1$s años</string>
+    <string name="valor_kg">%1$s kg</string>
+    <string name="valor_lb">%1$s lb</string>
+    <string name="valor_cm">%1$s cm</string>
+    <string name="valor_ft_in">%1$s ft %2$s in</string>
+    <string name="sin_dato">—</string>
+
+    <string name="interpretacion_bajo">Tu peso está por debajo del rango recomendado para tu estatura.</string>
+    <string name="interpretacion_normal">Tu peso está dentro del rango considerado saludable para tu estatura.</string>
+    <string name="interpretacion_sobrepeso">Tu peso está por encima del rango recomendado para tu estatura.</string>
+    <string name="interpretacion_obesidad">Tu peso se encuentra en la categoría de obesidad.</string>
+
+    <string name="rce_favorable">Por debajo de 0.5, un valor que suele considerarse favorable.</string>
+    <string name="rce_elevado">Por encima de 0.5, lo que podría indicar un mayor riesgo cardiovascular.</string>
+
+
+    <string name="calculadora_cientifica_proximamente">Calculadora científica próximamente...</string>
+</resources>

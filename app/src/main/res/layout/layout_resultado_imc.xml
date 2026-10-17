@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fondo"
+    android:clickable="true"
+    android:focusable="true">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollResultado"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/divisorResultado"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <!-- Título -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:text="@string/titulo_resultado"
+                android:textAlignment="center"
+                android:textAppearance="?attr/textAppearanceHeadlineSmall"
+                android:textColor="@color/tinta"
+                android:textStyle="bold" />
+
+            <!-- TARJETA PRINCIPAL: IMC -->
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Tarjeta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                app:cardBackgroundColor="@color/resultado_fondo">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:padding="24dp">
+
+                    <TextView
+                        style="@style/ResultadoEtiqueta"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tu_imc"
+                        android:textColor="@color/verde_niebla" />
+
+                    <TextView
+                        android:id="@+id/tvValorImc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textColor="@color/verde_niebla"
+                        android:textSize="56sp"
+                        android:textStyle="bold"
+                        tools:text="24.2" />
+
+
+                    <!-- Chip de categoría -->
+                    <TextView
+                        android:id="@+id/tvCategoria"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:background="@drawable/bg_chip_categoria"
+                        android:backgroundTint="@color/resultado_chip"
+                        android:paddingStart="16dp"
+                        android:paddingTop="6dp"
+                        android:paddingEnd="16dp"
+                        android:paddingBottom="6dp"
+                        android:textColor="@color/resultado_fondo"
+                        android:textStyle="bold"
+                        tools:text="Peso normal" />
+
+                    <!-- Barra de rangos con marcador -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="28dp"
+                        android:layout_marginTop="24dp">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cardBarra"
+                            android:layout_width="0dp"
+                            android:layout_height="12dp"
+                            app:cardCornerRadius="6dp"
+                            app:cardElevation="0dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:strokeWidth="0dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal"
+                                android:weightSum="25">
+
+                                <View
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="3.5"
+                                    android:background="@color/imc_bajo" />
+
+                                <View
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="6.5"
+                                    android:background="@color/imc_normal" />
+
+                                <View
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="5"
+                                    android:background="@color/imc_sobrepeso" />
+
+                                <View
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="10"
+                                    android:background="@color/imc_obesidad" />
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <!-- Posición del marcador: 0.0 a 1.0 (después la cambia el código) -->
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideMarcador"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.37" />
+
+                        <View
+                            android:id="@+id/marcadorImc"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:background="@drawable/marcador_imc"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@id/guideMarcador"
+                            app:layout_constraintStart_toStartOf="@id/guideMarcador"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <!-- Nombres de los rangos (mismos pesos que la barra) -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="25">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3.5"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="@string/rango_bajo"
+                            android:textColor="@color/verde_niebla"
+                            android:textSize="10sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="6.5"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="@string/rango_normal"
+                            android:textColor="@color/verde_niebla"
+                            android:textSize="10sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="5"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="@string/rango_sobrepeso"
+                            android:textColor="@color/verde_niebla"
+                            android:textSize="10sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="10"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="@string/rango_obesidad"
+                            android:textColor="@color/verde_niebla"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"
+                        android:text="@string/rangos_imc"
+                        android:textColor="@color/verde_niebla"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:id="@+id/tvInterpretacion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:gravity="center"
+                        android:textColor="@color/white"
+                        tools:text="Tu peso está dentro del rango considerado saludable para tu estatura." />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- TUS DATOS -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:drawableStart="@drawable/barra_verde"
+                android:drawablePadding="8dp"
+                android:gravity="center_vertical"
+                android:text="@string/tus_datos"
+                android:textAppearance="?attr/textAppearanceTitleMedium"
+                android:textColor="@color/verde_pino"
+                android:textStyle="bold" />
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Tarjeta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="6dp"
+                        android:paddingBottom="6dp">
+
+                        <TextView
+                            style="@style/ResultadoEtiqueta"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/dato_sexo" />
+
+                        <TextView
+                            android:id="@+id/tvDatoSexo"
+                            style="@style/ResultadoValor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="Hombre" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="6dp"
+                        android:paddingBottom="6dp">
+
+                        <TextView
+                            style="@style/ResultadoEtiqueta"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/dato_edad" />
+
+                        <TextView
+                            android:id="@+id/tvDatoEdad"
+                            style="@style/ResultadoValor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="28 años" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="6dp"
+                        android:paddingBottom="6dp">
+
+                        <TextView
+                            style="@style/ResultadoEtiqueta"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/dato_peso" />
+
+                        <TextView
+                            android:id="@+id/tvDatoPeso"
+                            style="@style/ResultadoValor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="74.1 kg" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="6dp"
+                        android:paddingBottom="6dp">
+
+                        <TextView
+                            style="@style/ResultadoEtiqueta"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/dato_altura" />
+
+                        <TextView
+                            android:id="@+id/tvDatoAltura"
+                            style="@style/ResultadoValor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="175 cm" />
+                    </LinearLayout>
+
+                    <!-- Esta fila se oculta si no capturaron cintura -->
+                    <LinearLayout
+                        android:id="@+id/filaCintura"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="6dp"
+                        android:paddingBottom="6dp">
+
+                        <TextView
+                            style="@style/ResultadoEtiqueta"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/dato_cintura" />
+
+                        <TextView
+                            android:id="@+id/tvDatoCintura"
+                            style="@style/ResultadoValor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="82 cm" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- RELACIÓN CINTURA-ESTATURA (solo si hay cintura) -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardCinturaEstatura"
+                style="@style/Tarjeta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            style="@style/ResultadoValor"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/rce_titulo" />
+
+                        <TextView
+                            android:id="@+id/tvValorRce"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/verde_pino"
+                            android:textSize="28sp"
+                            android:textStyle="bold"
+                            tools:text="0.47" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tvMensajeRce"
+                        style="@style/ResultadoEtiqueta"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        tools:text="Por debajo de 0.5, un valor que suele considerarse favorable." />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Aviso -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/aviso_resultado"
+                android:textAppearance="?attr/textAppearanceBodySmall"
+                android:textColor="@color/texto_placeholder" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Divisor + barra inferior (igual que la de captura) -->
+    <View
+        android:id="@+id/divisorResultado"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/borde"
+        app:layout_constraintBottom_toTopOf="@id/barraInferiorResultado"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/barraInferiorResultado"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnEditarDatos"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:minHeight="52dp"
+            android:text="@string/editar_datos"
+            android:textColor="@color/tinta"
+            app:backgroundTint="@color/white"
+            app:cornerRadius="12dp"
+            app:strokeColor="@color/borde" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnNuevoCalculo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:minHeight="52dp"
+            android:text="@string/nuevo_calculo"
+            android:textColor="@color/white"
+            app:backgroundTint="@color/verde_pino"
+            app:cornerRadius="12dp" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
