@@ -12,17 +12,17 @@
         android:id="@+id/pantalla"
         android:layout_width="0dp"
         android:layout_height="88dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="12dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="24dp"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="16dp"
         app:cardElevation="0dp"
-        app:strokeColor="@color/borde"
-        app:strokeWidth="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/borde"
+        app:strokeWidth="1dp">
 
         <LinearLayout
             android:id="@+id/contenidoPantalla"
@@ -39,38 +39,38 @@
             <LinearLayout
                 android:id="@+id/modoAngular"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="match_parent"
+                    android:id="@+id/tvModoAngular"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
                     android:background="@drawable/bg_chip_modo"
-                    android:gravity="center_horizontal"
-                    android:paddingHorizontal="10dp"
+                    android:paddingStart="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="5dp"
                     android:text="@string/modo_deg"
                     android:textColor="@color/verde_pino"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tvDescripcionModo"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center_horizontal"
+                    android:layout_marginTop="4dp"
                     android:text="@string/modo_grados"
                     android:textColor="@color/texto_secundario"
-                    android:textSize="12sp" />
+                    android:textSize="11sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/operacion"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_weight="1"
                 android:gravity="end"
@@ -82,9 +82,9 @@
                     android:layout_height="wrap_content"
                     android:gravity="end"
                     android:maxLines="1"
-                    tools:text="0"
                     android:textColor="@color/texto_secundario"
-                    android:textSize="14sp" />
+                    android:textSize="13sp"
+                    tools:text="sin(30) + cos(60)" />
 
                 <TextView
                     android:id="@+id/tvResultado"
@@ -92,11 +92,533 @@
                     android:layout_height="wrap_content"
                     android:gravity="end"
                     android:maxLines="1"
-                    android:text="0"
+                    android:text="@string/resultado_inicial"
                     android:textColor="@color/tinta"
                     android:textSize="36sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:text="1" />
             </LinearLayout>
         </LinearLayout>
+
     </com.google.android.material.card.MaterialCardView>
+
+    <LinearLayout
+        android:id="@+id/teclado"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="21dp"
+        android:layout_marginBottom="9dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pantalla">
+
+        <!-- ================= BLOQUE IZQUIERDO: FUNCIONES CIENTÍFICAS ================= -->
+        <LinearLayout
+            android:id="@+id/funcionesCientificas"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="3dp"
+            android:layout_weight="21"
+            android:orientation="vertical">
+
+            <!-- Fila 1: 2nd sin cos tan x² -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn2nd"
+                    style="@style/Tecla.ModoActivo"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_2nd" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSin"
+                    style="@style/Tecla.Funcion"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_sin" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnCos"
+                    style="@style/Tecla.Funcion"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_cos" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnTan"
+                    style="@style/Tecla.Funcion"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_tan" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnCuadrado"
+                    style="@style/Tecla.Funcion"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_cuadrado" />
+            </LinearLayout>
+
+            <!-- Fila 2: asin acos atan ln log -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnAsin"
+                    style="@style/Tecla.Funcion"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_asin" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnAcos"
+                    style="@style/Tecla.Funcion"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_acos" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnAtan"
+                    style="@style/Tecla.Funcion"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_atan" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnLn"
+                    style="@style/Tecla.Funcion"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_ln" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnLog"
+                    style="@style/Tecla.Funcion"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_log" />
+            </LinearLayout>
+
+            <!-- Fila 3: √ xʸ 1/x n! |x| -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnRaiz"
+                    style="@style/Tecla.Funcion"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_raiz" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnPotencia"
+                    style="@style/Tecla.Funcion"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_potencia" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnInverso"
+                    style="@style/Tecla.Funcion"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_inverso" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnFactorial"
+                    style="@style/Tecla.Funcion"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_factorial" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnAbsoluto"
+                    style="@style/Tecla.Funcion"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_absoluto" />
+            </LinearLayout>
+
+            <!-- Fila 4: π e ( ) mod -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnPi"
+                    style="@style/Tecla.Funcion"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_pi" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnE"
+                    style="@style/Tecla.Funcion"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_e" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnParAbre"
+                    style="@style/Tecla.Funcion"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_par_abre" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnParCierra"
+                    style="@style/Tecla.Funcion"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_par_cierra" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnMod"
+                    style="@style/Tecla.Funcion"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_mod" />
+            </LinearLayout>
+
+            <!-- Fila 5: eˣ 10ˣ x³ ∛ Ans -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnExp"
+                    style="@style/Tecla.Funcion"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_exp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnDiezElevado"
+                    style="@style/Tecla.Funcion"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_diez_elevado" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnCubo"
+                    style="@style/Tecla.Funcion"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_cubo" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnRaizCubica"
+                    style="@style/Tecla.Funcion"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_raiz_cubica" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnAns"
+                    style="@style/Tecla.Funcion"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_ans" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- ================= BLOQUE DERECHO: OPERACIONES BÁSICAS ================= -->
+        <LinearLayout
+            android:id="@+id/funcionesBasicas"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="3dp"
+            android:layout_weight="16"
+            android:orientation="vertical">
+
+            <!-- Fila 1: AC ⌫ % ± -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnAC"
+                    style="@style/Tecla.Funcion"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_ac" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnBorrar"
+                    style="@style/Tecla.Funcion"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_borrar" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnPorcentaje"
+                    style="@style/Tecla.Funcion"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_porcentaje" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSigno"
+                    style="@style/Tecla.Funcion"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_signo" />
+            </LinearLayout>
+
+            <!-- Fila 2: 7 8 9 ÷ -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn7"
+                    style="@style/Tecla.Numero"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_7" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn8"
+                    style="@style/Tecla.Numero"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_8" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn9"
+                    style="@style/Tecla.Numero"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_9" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnDividir"
+                    style="@style/Tecla.Operador"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_dividir" />
+            </LinearLayout>
+
+            <!-- Fila 3: 4 5 6 × -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn4"
+                    style="@style/Tecla.Numero"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_4" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn5"
+                    style="@style/Tecla.Numero"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_5" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn6"
+                    style="@style/Tecla.Numero"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_6" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnMultiplicar"
+                    style="@style/Tecla.Operador"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_multiplicar" />
+            </LinearLayout>
+
+            <!-- Fila 4: 1 2 3 − -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn1"
+                    style="@style/Tecla.Numero"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_1" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn2"
+                    style="@style/Tecla.Numero"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_2" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn3"
+                    style="@style/Tecla.Numero"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_3" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnRestar"
+                    style="@style/Tecla.Operador"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_restar" />
+            </LinearLayout>
+
+            <!-- Fila 5: 0 . = + -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn0"
+                    style="@style/Tecla.Numero"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_0" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnPunto"
+                    style="@style/Tecla.Numero"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_punto" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnIgual"
+                    style="@style/Tecla.Igual"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_igual" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSumar"
+                    style="@style/Tecla.Operador"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:text="@string/tecla_sumar" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
