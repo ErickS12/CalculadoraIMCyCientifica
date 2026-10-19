@@ -1,5 +1,6 @@
 package com.fcc.calculadoraimcycientifica
-
+import com.fcc.calculadoraimcycientifica.calculo.CategoriaImc
+import com.fcc.calculadoraimcycientifica.calculo.ResultadoImc
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +15,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.fcc.calculadoraimcycientifica.databinding.FragmentCalculadoraIMCBinding
 import java.util.Locale
-import kotlin.math.roundToInt
 
 class CalculadoraImcFragment : Fragment() {
 
@@ -143,18 +143,7 @@ class CalculadoraImcFragment : Fragment() {
     }
 
     private fun validarFormulario() {
-        val edadValida = viewModel.edad.isNotBlank() && (viewModel.edad.toIntOrNull() ?: 0) > 0
-        val pesoValido = viewModel.peso.isNotBlank() && (viewModel.peso.toDoubleOrNull() ?: 0.0) > 0.0
-        val sexoValido = viewModel.sexo != null
-        val alturaValida = if (viewModel.esMetrico) {
-            viewModel.altura.isNotBlank() && (viewModel.altura.toDoubleOrNull() ?: 0.0) > 0.0
-        } else {
-            val ft = viewModel.alturaFt.toDoubleOrNull() ?: 0.0
-            val inch = viewModel.alturaIn.toDoubleOrNull() ?: 0.0
-            (ft * 12 + inch) > 0.0
-        }
-
-        binding.btnCalcular.isEnabled = edadValida && pesoValido && sexoValido && alturaValida
+        binding.btnCalcular.isEnabled = viewModel.formularioValido()
     }
 
     private fun configurarBotones() {
@@ -198,59 +187,41 @@ class CalculadoraImcFragment : Fragment() {
             atras.isEnabled = mostrando
 
             if (mostrando) {
-                calcularYMostrarResultado()
+                mostrarResultado(viewModel.resultadoActual())
             }
         }
     }
 
-    private fun calcularYMostrarResultado() {
-        val pesoKg: Double
-        val alturaCm: Double
+    private fun mostrarResultado(r: ResultadoImc) {
+        val v = binding.resultado
+        v.tvValorImc.text = String.format(Locale.getDefault(), "%.1f", r.imc)
 
-        if (viewModel.esMetrico) {
-            pesoKg = viewModel.peso.toDoubleOrNull() ?: 0.0
-            alturaCm = viewModel.altura.toDoubleOrNull() ?: 0.0
-        } else {
-            val pesoLb = viewModel.peso.toDoubleOrNull() ?: 0.0
-            pesoKg = pesoLb * 0.45359237
-            val ft = viewModel.alturaFt.toDoubleOrNull() ?: 0.0
-            val inch = viewModel.alturaIn.toDoubleOrNull() ?: 0.0
-            alturaCm = (ft * 12 + inch) * 2.54
+        val (categoriaRes, interpretacionRes) = when (r.categoria) {
+            CategoriaImc.BAJO_PESO -> R.string.categoria_bajo to R.string.interpretacion_bajo
+            CategoriaImc.NORMAL -> R.string.categoria_normal to R.string.interpretacion_normal
+            CategoriaImc.SOBREPESO -> R.string.categoria_sobrepeso to R.string.interpretacion_sobrepeso
+            CategoriaImc.OBESIDAD -> R.string.categoria_obesidad to R.string.interpretacion_obesidad
         }
-
-        val alturaMetros = alturaCm / 100.0
-        val imcExacto = if (alturaMetros > 0) pesoKg / (alturaMetros * alturaMetros) else 0.0
-        val imc = (imcExacto * 10).roundToInt() / 10.0
-
-        val r = binding.resultado
-        r.tvValorImc.text = String.format(Locale.getDefault(), "%.1f", imc)
-
-        val (categoriaRes, interpretacionRes) = when {
-            imc < 18.5 -> R.string.categoria_bajo to R.string.interpretacion_bajo
-            imc < 25.0 -> R.string.categoria_normal to R.string.interpretacion_normal
-            imc < 30.0 -> R.string.categoria_sobrepeso to R.string.interpretacion_sobrepeso
-            else -> R.string.categoria_obesidad to R.string.interpretacion_obesidad
-        }
-        r.tvCategoria.text = getString(categoriaRes)
-        r.tvInterpretacion.text = getString(interpretacionRes)
+        v.tvCategoria.text = getString(categoriaRes)
+        v.tvInterpretacion.text = getString(interpretacionRes)
 
         // La barra va de IMC 15 a 40
-        r.guideMarcador.setGuidelinePercent(((imc - 15.0) / 25.0).toFloat().coerceIn(0f, 1f))
+        v.guideMarcador.setGuidelinePercent(((r.imc - 15.0) / 25.0).toFloat().coerceIn(0f, 1f))
 
-        r.tvDatoSexo.text = when (viewModel.sexo) {
+        v.tvDatoSexo.text = when (viewModel.sexo) {
             Sexo.MUJER -> getString(R.string.mujer)
             Sexo.HOMBRE -> getString(R.string.hombre)
             null -> getString(R.string.sin_dato)
         }
-        r.tvDatoEdad.text = if (viewModel.edad.isNotBlank())
+        v.tvDatoEdad.text = if (viewModel.edad.isNotBlank())
             getString(R.string.valor_anios, viewModel.edad)
         else getString(R.string.sin_dato)
 
-        r.tvDatoPeso.text = getString(
+        v.tvDatoPeso.text = getString(
             if (viewModel.esMetrico) R.string.valor_kg else R.string.valor_lb,
             viewModel.peso
         )
-        r.tvDatoAltura.text = if (viewModel.esMetrico)
+        v.tvDatoAltura.text = if (viewModel.esMetrico)
             getString(R.string.valor_cm, viewModel.altura)
         else
             getString(
@@ -259,20 +230,17 @@ class CalculadoraImcFragment : Fragment() {
                 viewModel.alturaIn.ifBlank { "0" }
             )
 
-        val cinturaCm = viewModel.cintura.toDoubleOrNull()
-        if (cinturaCm != null && cinturaCm > 0.0 && alturaCm > 0.0) {
-            r.filaCintura.isVisible = true
-            r.cardCinturaEstatura.isVisible = true
-            r.tvDatoCintura.text = getString(R.string.valor_cm, viewModel.cintura)
-
-            val rce = cinturaCm / alturaCm
-            r.tvValorRce.text = String.format(Locale.getDefault(), "%.2f", rce)
-            r.tvMensajeRce.text = getString(
-                if (rce < 0.5) R.string.rce_favorable else R.string.rce_elevado
+        if (r.rce != null) {
+            v.filaCintura.isVisible = true
+            v.cardCinturaEstatura.isVisible = true
+            v.tvDatoCintura.text = getString(R.string.valor_cm, viewModel.cintura)
+            v.tvValorRce.text = String.format(Locale.getDefault(), "%.2f", r.rce)
+            v.tvMensajeRce.text = getString(
+                if (r.rceFavorable) R.string.rce_favorable else R.string.rce_elevado
             )
         } else {
-            r.filaCintura.isVisible = false
-            r.cardCinturaEstatura.isVisible = false
+            v.filaCintura.isVisible = false
+            v.cardCinturaEstatura.isVisible = false
         }
     }
 

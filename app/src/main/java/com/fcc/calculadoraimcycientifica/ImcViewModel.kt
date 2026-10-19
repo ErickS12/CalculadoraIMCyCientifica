@@ -1,5 +1,6 @@
 package com.fcc.calculadoraimcycientifica
-
+import com.fcc.calculadoraimcycientifica.calculo.ImcCalculadora
+import com.fcc.calculadoraimcycientifica.calculo.ResultadoImc
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
@@ -64,6 +65,39 @@ class ImcViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel()
         _mostrandoResultado.value = false
     }
 
+    // Antes era validarFormulario() del Fragment
+    fun formularioValido(): Boolean {
+        val edadValida = (edad.toIntOrNull() ?: 0) > 0
+        val pesoValido = (peso.toDoubleOrNull() ?: 0.0) > 0.0
+        val sexoValido = sexo != null
+        val alturaValida = if (esMetrico) {
+            (altura.toDoubleOrNull() ?: 0.0) > 0.0
+        } else {
+            val ft = alturaFt.toDoubleOrNull() ?: 0.0
+            val inch = alturaIn.toDoubleOrNull() ?: 0.0
+            (ft * 12 + inch) > 0.0
+        }
+        return edadValida && pesoValido && sexoValido && alturaValida
+    }
+
+    // Convierte lo escrito a kg y cm, y delega el cálculo
+    fun resultadoActual(): ResultadoImc {
+        val pesoKg: Double
+        val alturaCm: Double
+
+        if (esMetrico) {
+            pesoKg = peso.toDoubleOrNull() ?: 0.0
+            alturaCm = altura.toDoubleOrNull() ?: 0.0
+        } else {
+            pesoKg = (peso.toDoubleOrNull() ?: 0.0) * LIBRA_A_KG
+            val ft = alturaFt.toDoubleOrNull() ?: 0.0
+            val inch = alturaIn.toDoubleOrNull() ?: 0.0
+            alturaCm = (ft * 12 + inch) * PULGADA_A_CM
+        }
+
+        return ImcCalculadora.calcular(pesoKg, alturaCm, cintura.toDoubleOrNull())
+    }
+
     companion object {
         private const val SEXO_KEY = "sexo_key"
         private const val EDAD_KEY = "edad_key"
@@ -74,5 +108,7 @@ class ImcViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel()
         private const val CINTURA_KEY = "cintura_key"
         private const val SISTEMA_KEY = "sistema_key"
         private const val RESULTADO_KEY = "resultado_key"
+        private const val LIBRA_A_KG = 0.45359237
+        private const val PULGADA_A_CM = 2.54
     }
 }
