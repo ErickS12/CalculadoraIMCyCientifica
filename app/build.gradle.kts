@@ -54,4 +54,6 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    //librería para los cálculos matemáticos
+    implementation("org.mariuszgromada.math:MathParser.org-mXparser:6.1.1")
 }

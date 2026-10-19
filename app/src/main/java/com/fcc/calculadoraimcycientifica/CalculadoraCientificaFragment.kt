@@ -43,9 +43,11 @@ class CalculadoraCientificaFragment : Fragment() {
         }
         configurarTeclas()
 
-        viewModel.entrada.observe(viewLifecycleOwner) { texto ->
-            binding.tvResultado.text = texto.ifEmpty { "0" }
-        }
+        viewModel.entrada.observe(viewLifecycleOwner) { actualizarPantalla() }
+        viewModel.resultado.observe(viewLifecycleOwner) { actualizarPantalla() }
+        viewModel.expresionPrevia.observe(viewLifecycleOwner) { actualizarPantalla() }
+        viewModel.mostrandoResultado.observe(viewLifecycleOwner) { actualizarPantalla() }
+        viewModel.hayError.observe(viewLifecycleOwner) { actualizarPantalla() }
     }
 
     override fun onDestroyView() {
@@ -53,6 +55,16 @@ class CalculadoraCientificaFragment : Fragment() {
         _binding = null
     }
 
+    private fun actualizarPantalla() {
+        val mostrando = viewModel.mostrandoResultado.value == true
+        val error = viewModel.hayError.value == true
+
+        binding.tvExpresion.text = viewModel.expresionPrevia.value.orEmpty()
+        binding.tvResultado.text = when {
+            error || mostrando -> viewModel.resultado.value.orEmpty()
+            else -> viewModel.entrada.value.orEmpty().ifEmpty { "0" }
+        }
+    }
 
     private fun configurarTeclas() {
         val teclas = listOf(
@@ -91,14 +103,64 @@ class CalculadoraCientificaFragment : Fragment() {
     }
 
     private fun alPresionarTecla(token: String) {
+        // Después de un error, cualquier tecla limpia la pantalla
+        if (viewModel.hayError.value == true) {
+            viewModel.limpiarTodo()
+            if (token == TECLA_AC || token == TECLA_BORRAR) return
+        }
+
+        // Después de "=" se puede continuar con el resultado
+        if (viewModel.mostrandoResultado.value == true) {
+            when (token) {
+                TECLA_AC -> { viewModel.limpiarTodo(); return }
+                TECLA_BORRAR, TECLA_IGUAL, TECLA_SIGNO, TECLA_2ND -> return
+            }
+            // Operador o sufijo: sigue con Ans. Cualquier otra tecla: cuenta nueva.
+            val nueva = if (token in BINARIOS || token in SUFIJOS) {
+                aplicarTecla("Ans", token)
+            } else {
+                aplicarTecla("", token)
+            }
+            viewModel.mostrandoResultado.value = false
+            viewModel.resultado.value = ""
+            viewModel.expresionPrevia.value = ""
+            viewModel.entrada.value = nueva
+            return
+        }
+
         when (token) {
             TECLA_AC -> viewModel.limpiarTodo()
-            TECLA_IGUAL, TECLA_SIGNO, TECLA_2ND -> {
-                // se implementan en etapas posteriores
-            }
-            else -> { // incluye BORRAR, que lo resuelve aplicarTecla
-                val actual = viewModel.entrada.value ?: ""
+            TECLA_IGUAL -> alIgual()
+            TECLA_SIGNO, TECLA_2ND -> { /* etapas posteriores */ }
+            else -> {
+                val actual = viewModel.entrada.value.orEmpty()
                 viewModel.entrada.value = aplicarTecla(actual, token)
+            }
+        }
+    }
+
+    private fun alIgual() {
+        val entrada = viewModel.entrada.value.orEmpty()
+        if (entrada.isEmpty()) return
+
+        val enGrados = viewModel.enGrados.value ?: true
+        val ans = viewModel.ans.value ?: 0.0
+
+        when (val r = evaluar(entrada, enGrados, ans)) {
+            is ResultadoCalculo.Exito -> {
+                viewModel.expresionPrevia.value = cerrarParentesis(entrada)
+                viewModel.resultado.value = r.valor.toString() // provisional: Etapa 3
+                viewModel.ans.value = r.valor
+                viewModel.mostrandoResultado.value = true
+            }
+            is ResultadoCalculo.Error -> {
+                viewModel.expresionPrevia.value = cerrarParentesis(entrada)
+                viewModel.resultado.value = when (r.tipo) {
+                    TipoError.INDEFINIDO -> "Indefinido"
+                    TipoError.SINTAXIS -> "Expresión inválida"
+                    TipoError.DESBORDAMIENTO -> "Desbordamiento"
+                }
+                viewModel.hayError.value = true
             }
         }
     }

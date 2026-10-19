@@ -10,35 +10,35 @@ enum class Sexo { MUJER, HOMBRE }
 class ImcViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel() {
 
     var sexo: Sexo?
-        get() = savedStateHandle.get(SEXO_KEY)
+        get() = savedStateHandle[SEXO_KEY]
         set(value) = savedStateHandle.set(SEXO_KEY, value)
 
     var edad: String
-        get() = savedStateHandle.get(EDAD_KEY) ?: ""
+        get() = savedStateHandle[EDAD_KEY] ?: ""
         set(value) = savedStateHandle.set(EDAD_KEY, value)
 
     var peso: String
-        get() = savedStateHandle.get(PESO_KEY) ?: ""
+        get() = savedStateHandle[PESO_KEY] ?: ""
         set(value) = savedStateHandle.set(PESO_KEY, value)
 
     var altura: String
-        get() = savedStateHandle.get(ALTURA_KEY) ?: ""
+        get() = savedStateHandle[ALTURA_KEY] ?: ""
         set(value) = savedStateHandle.set(ALTURA_KEY, value)
 
     var alturaFt: String
-        get() = savedStateHandle.get(ALTURA_FT_KEY) ?: ""
+        get() = savedStateHandle[ALTURA_FT_KEY] ?: ""
         set(value) = savedStateHandle.set(ALTURA_FT_KEY, value)
 
     var alturaIn: String
-        get() = savedStateHandle.get(ALTURA_IN_KEY) ?: ""
+        get() = savedStateHandle[ALTURA_IN_KEY] ?: ""
         set(value) = savedStateHandle.set(ALTURA_IN_KEY, value)
 
     var cintura: String
-        get() = savedStateHandle.get(CINTURA_KEY) ?: ""
+        get() = savedStateHandle[CINTURA_KEY] ?: ""
         set(value) = savedStateHandle.set(CINTURA_KEY, value)
 
     var esMetrico: Boolean
-        get() = savedStateHandle.get(SISTEMA_KEY) ?: true
+        get() = savedStateHandle[SISTEMA_KEY] ?: true
         set(value) = savedStateHandle.set(SISTEMA_KEY, value)
 
     private val _mostrandoResultado: MutableLiveData<Boolean> =

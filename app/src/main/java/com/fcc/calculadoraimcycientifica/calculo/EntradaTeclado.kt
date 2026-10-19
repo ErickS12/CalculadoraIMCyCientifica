@@ -9,8 +9,8 @@ const val TECLA_2ND = "2ND"
 private const val MAX_LONGITUD = 60
 
 private val DIGITOS = ('0'..'9').map { it.toString() }
-private val BINARIOS = listOf("+", "−", "×", "÷", "^", " mod ")
-private val SUFIJOS = listOf("!", "%", "²", "³")
+val BINARIOS = listOf("+", "−", "×", "÷", "^", " mod ")
+ val SUFIJOS = listOf("!", "%", "²", "³")
 private val ABRE_OPERANDO = listOf(
     "(", "sin(", "cos(", "tan(", "asin(", "acos(", "atan(",
     "ln(", "log(", "√(", "∛(", "abs(", "1÷(",
