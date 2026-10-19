@@ -1,7 +1,6 @@
 package com.fcc.calculadoraimcycientifica
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,6 +42,10 @@ class CalculadoraCientificaFragment : Fragment() {
             insets
         }
         configurarTeclas()
+
+        viewModel.entrada.observe(viewLifecycleOwner) { texto ->
+            binding.tvResultado.text = texto.ifEmpty { "0" }
+        }
     }
 
     override fun onDestroyView() {
@@ -88,7 +91,15 @@ class CalculadoraCientificaFragment : Fragment() {
     }
 
     private fun alPresionarTecla(token: String) {
-        Log.d("CALC", token)
+        when (token) {
+            TECLA_AC -> viewModel.limpiarTodo()
+            TECLA_IGUAL, TECLA_SIGNO, TECLA_2ND -> {
+                // se implementan en etapas posteriores
+            }
+            else -> { // incluye BORRAR, que lo resuelve aplicarTecla
+                val actual = viewModel.entrada.value ?: ""
+                viewModel.entrada.value = aplicarTecla(actual, token)
+            }
+        }
     }
-
 }
